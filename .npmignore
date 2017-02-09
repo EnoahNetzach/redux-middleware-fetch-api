@@ -1,0 +1,8 @@
+/coverage
+/src
+
+.babelrc
+.eslintrc.yml
+.jestrc
+srcIndex.js
+yarn.lock

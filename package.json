@@ -1,0 +1,44 @@
+{
+  "name": "redux-middleware-fetch-api",
+  "version": "0.1.0",
+  "description": "api middleware for redux and immutable",
+  "main": "dist/index.js",
+  "repository": {},
+  "author": {
+    "name": "Enoah Netzach",
+    "email": "f.castellarin@gmail.com",
+    "url": "https://github.com/EnoahNetzach"
+  },
+  "license": "MIT",
+  "scripts": {
+    "clean": "rimraf dist && rimraf index.js",
+    "predist": "yarn run clean",
+    "dist": "babel src --out-dir dist --ignore __tests__,__mocks__",
+    "postdist": "babel srcIndex.js --out-file index.js",
+    "test": "jest --config .jestrc",
+    "watch": "onchange './src' -iw -- npm run dist 2> /dev/null"
+  },
+  "dependencies": {
+    "immutable": "^3.8.1",
+    "isomorphic-fetch": "^2.2.1",
+    "onchange": "^3.2.1",
+    "reselect": "^2.5.4",
+    "uuid": "^3.0.1"
+  },
+  "peerDependencies": {
+    "immutable": "^3.8.1",
+    "reselect": "^2.5.4"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.22.2",
+    "babel-eslint": "^7.1.1",
+    "babel-plugin-transform-object-rest-spread": "^6.22.0",
+    "babel-plugin-transform-runtime": "^6.22.0",
+    "babel-preset-latest": "^6.22.0",
+    "eslint": "^3.15.0",
+    "eslint-config-airbnb-base": "^11.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "jest": "^18.1.0",
+    "rimraf": "^2.5.4"
+  }
+}

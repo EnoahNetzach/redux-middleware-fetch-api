@@ -1,0 +1,5 @@
+{
+  "collectCoverageFrom": ["src/**/*.js"],
+  "testPathIgnorePatterns": ["<rootDir>[/\\\\](dist|node_modules)[/\\\\]"],
+  "testEnvironment": "node"
+}
