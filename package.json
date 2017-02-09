@@ -15,6 +15,7 @@
     "predist": "yarn run clean",
     "dist": "babel src --out-dir dist --ignore __tests__,__mocks__",
     "postdist": "babel srcIndex.js --out-file index.js",
+    "prepublish": "yarn run dist",
     "test": "jest --config .jestrc",
     "watch": "onchange './src' -iw -- npm run dist 2> /dev/null"
   },
