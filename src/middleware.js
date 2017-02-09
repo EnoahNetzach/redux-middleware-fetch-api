@@ -63,7 +63,7 @@ export default store => next => async (action) => {
 
   const { payload, meta = {} } = callAPI
 
-  const { failure, request, success } = payload.types || {}
+  const types = payload.types || {}
   const endpoint = payload.endpoint
   const method = payload.method || METHOD_GET
   const headers = payload.headers
@@ -77,10 +77,6 @@ export default store => next => async (action) => {
     throw new Error('Specify a string endpoint URL.')
   }
 
-  if (!failure || !request || !success) {
-    throw new Error('Expected three action types (failure, request, success).')
-  }
-
   const makeAction = (data) => {
     const newAction = { ...action, ...data }
     delete newAction[CALL_API]
@@ -88,7 +84,7 @@ export default store => next => async (action) => {
   }
 
   next(makeAction({
-    type: request,
+    type: types.request,
     payload: extraPayload,
     meta: extraMeta,
   }))
@@ -96,15 +92,17 @@ export default store => next => async (action) => {
   const currentRequestId = uuid.v4()
 
   const wasAborted = () =>
-  selector(store.getState(), { id: currentRequestId, type: API_REQUEST_ABORT }).length > 0
+    selector(store.getState(), { id: currentRequestId, type: API_REQUEST_ABORT }).length > 0
 
-  store.dispatch(startRequest({ action: request, requestId: currentRequestId, endpoint, method }))
+  if (types.request) {
+    store.dispatch(startRequest({ action: types.request, requestId: currentRequestId, endpoint, method }))
+  }
 
-  const abortCurrentRequest = () => store.dispatch(
-    abortRequest({ action: failure, requestId: currentRequestId, endpoint, method }),
+  const abortCurrentRequest = () => types.failure && store.dispatch(
+    abortRequest({ action: types.failure, requestId: currentRequestId, endpoint, method }),
   )
-  const endCurrentRequest = () => store.dispatch(
-    finishRequest({ action: success, requestId: currentRequestId, endpoint, method }),
+  const endCurrentRequest = () => types.success && store.dispatch(
+    finishRequest({ action: types.success, requestId: currentRequestId, endpoint, method }),
   )
 
   let error
@@ -130,7 +128,7 @@ export default store => next => async (action) => {
   }, expiryTime)
 
   return next(makeAction({
-    type: response.ok ? success : failure,
+    type: response.ok ? types.success : types.failure,
     payload: {
       ...extraPayload,
       error,

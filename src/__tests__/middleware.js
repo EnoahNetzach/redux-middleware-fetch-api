@@ -60,6 +60,7 @@ describe('api middleware', () => {
   })
 
   it('throws if no data is provided', async () => {
+    let errorMessage
     try {
       await api({})(() => {})({
         [CALL_API]: {
@@ -67,11 +68,13 @@ describe('api middleware', () => {
         },
       })
     } catch (error) {
-      expect(error).toEqual(new Error('Expected a payload.'))
+      errorMessage = error.message
     }
+    expect(errorMessage).toEqual('Expected a payload.')
   })
 
   it('throws if endpoint is not a string', async () => {
+    let errorMessage
     try {
       await api({})(() => {})({
         [CALL_API]: {
@@ -83,25 +86,9 @@ describe('api middleware', () => {
         },
       })
     } catch (error) {
-      expect(error).toEqual(new Error('Specify a string endpoint URL.'))
+      errorMessage = error.message
     }
-  })
-
-  it('throws if types is not present', async () => {
-    try {
-      await api({})(() => {})({
-        [CALL_API]: {
-          payload: {
-            types: null,
-            endpoint: 'endpoint',
-          },
-        },
-      })
-    } catch (error) {
-      expect(error).toEqual(
-        new Error('Expected three action types (failure, request, success).'),
-      )
-    }
+    expect(errorMessage).toEqual('Specify a string endpoint URL.')
   })
 
   it('calls the request action', async () => {
