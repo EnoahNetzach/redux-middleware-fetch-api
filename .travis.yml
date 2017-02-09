@@ -7,10 +7,10 @@ os:
   - linux
   - osx
 cache:
+  yarn: true
   directories:
     - node_modules
 script:
-  - npm install --global yarn
   - yarn install
   - yarn run dist
   - yarn test
