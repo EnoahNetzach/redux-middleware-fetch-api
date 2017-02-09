@@ -3,9 +3,6 @@ node_js:
   - 4
   - 6
   - 7
-os:
-  - linux
-  - osx
 cache:
   yarn: true
   directories:
