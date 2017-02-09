@@ -18,7 +18,7 @@
     "postdist": "babel srcIndex.js --out-file index.js",
     "prepublish": "yarn run dist",
     "test": "jest --config .jestrc",
-    "watch": "onchange './src' -iw -- npm run dist 2> /dev/null"
+    "watch": "onchange './src' -iw -- yarn run dist 2> /dev/null"
   },
   "dependencies": {
     "immutable": "^3.8.1",
