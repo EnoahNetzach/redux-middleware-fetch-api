@@ -1,6 +1,6 @@
 {
   "name": "redux-middleware-fetch-api",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "api middleware for redux and immutable",
   "main": "dist/index.js",
   "repository": {},
