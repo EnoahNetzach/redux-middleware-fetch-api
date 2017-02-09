@@ -11,7 +11,8 @@
   },
   "license": "MIT",
   "scripts": {
-    "clean": "rimraf dist && rimraf index.js",
+    "clean": "rimraf dist",
+    "postclean": "rimraf index.js",
     "predist": "yarn run clean",
     "dist": "babel src --out-dir dist --ignore __tests__,__mocks__",
     "postdist": "babel srcIndex.js --out-file index.js",
